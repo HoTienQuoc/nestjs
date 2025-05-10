@@ -1,14 +1,13 @@
 services:
   postgres:
     environment:
-      POSTGRES_USER: api
-      POSTGRES_PASSWORD: development_pass
-      POSTGRES_MULTIPLE_DATABASES: form-api,form-api-testing
+      - POSTGRES_USER=api
+      - POSTGRES_PASSWORD=development_pass
+      - POSTGRES_MULTIPLE_DATABASES="api-database","api-testing-database"
     volumes:
       - ./docker-utils:/docker-entrypoint-initdb.d
-      - contract_api_data:/data/postgres
+      - api_data:/data/postgres
     ports:
-      - 5430:5432
+      - 5433:5432
 volumes:
-  contract_api_data: {}
-      
+  api_data: {}
