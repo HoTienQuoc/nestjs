@@ -1,4 +1,4 @@
-import { Injectable, NestMiddleware, UnauthorizedException } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable, NestMiddleware, UnauthorizedException } from "@nestjs/common";
 import { NextFunction, Request, Response } from "express";
 import { RequestModel } from "../interfaces/user";
 
@@ -9,7 +9,8 @@ export class AuthMiddleware implements NestMiddleware {
         
         const { authorization } = req.headers;
         if (!authorization) {
-        throw new UnauthorizedException("API token is required");
+        // throw new UnauthorizedException("API token is required");
+        throw new HttpException("API token is required", HttpStatus.UNAUTHORIZED);
         }
         // const {role,email,permissions} = this.authService.authenticateUser(authorization);
         req.user = {
